@@ -28,13 +28,13 @@ var (
 // In next calls of GetNewGame will return only game entity
 // for future difficulty sets.
 func GetNewGame() *gameSingleton {
-
-	// once ensures that the following code is executed only one time.
-	once.Do(func() {
-		gameInstance = new(gameSingleton)
-		gameInstance.startGame(normal)
-	})
-
+	if gameInstance == nil {
+		// once ensures that the following code is executed only one time.
+		once.Do(func() {
+			gameInstance = new(gameSingleton)
+			gameInstance.startGame(normal)
+		})
+	}
 	return gameInstance
 }
 
